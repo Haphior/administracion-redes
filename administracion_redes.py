@@ -1,4 +1,10 @@
 import os
+import re
+
+def es_direccion_ipv4(direccion):
+    # Expresión regular para validar direcciones IPv4
+    patron_ipv4 = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+    return re.match(patron_ipv4, direccion) is not None
 
 class AdministradorRedes:
     def __init__(self, nombre_archivo):
@@ -118,7 +124,17 @@ class AdministradorRedes:
             else:
                 capa = "Desconocida"
             interfaces = input("Ingrese las interfaces de red del dispositivo (separadas por coma): ").split(",")
-            ips = input("Ingrese las IPs de las interfaces (separadas por coma): ").split(",")
+            # Validar e ingresar las direcciones IP para cada interfaz
+            ips = []
+            for interfaz in interfaces:
+                ip_valida = False
+                while not ip_valida:
+                    ip = input(f"Ingrese la dirección IP para la interfaz {interfaz}: ")
+                    if es_direccion_ipv4(ip):
+                        ips.append(ip)
+                        ip_valida = True
+                    else:
+                        print("La dirección IP ingresada no es válida. Inténtelo nuevamente.")
             vlans = input("Ingrese las VLANs configuradas (separadas por coma): ").split(",")
             servicios = input("Ingrese los servicios de red configurados (separados por coma): ").split(",")
             detalles = {
@@ -132,42 +148,20 @@ class AdministradorRedes:
             self.dispositivos[nombre] = detalles
             input("Dispositivo agregado. Presione Enter para continuar.")
             self.administrar_dispositivos()
+        
         elif opcion == "2":
             nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
             if nombre in self.dispositivos:
-                modelo = input("Ingrese el nuevo modelo del dispositivo: ")
-                print("Seleccione la nueva capa jerárquica a la que pertenece:")
-                print("1) Núcleo")
-                print("2) Distribución")
-                print("3) Acceso")
-                capa_opcion = input("Opción: ")
-                if capa_opcion == "1":
-                    capa = "Núcleo"
-                elif capa_opcion == "2":
-                    capa = "Distribución"
-                elif capa_opcion == "3":
-                    capa = "Acceso"
-                else:
-                    capa = "Desconocida"
-                interfaces = input("Ingrese las nuevas interfaces de red del dispositivo (separadas por coma): ").split(",")
-                ips = input("Ingrese las nuevas IPs de las interfaces (separadas por coma): ").split(",")
-                vlans = input("Ingrese las nuevas VLANs configuradas (separadas por coma): ").split(",")
-                servicios = input("Ingrese los nuevos servicios de red configurados (separados por coma): ").split(",")
-                detalles = {
-                    "Modelo": modelo,
-                    "Capa": capa,
-                    "Interfaces": interfaces,
-                    "IPs": ips,
-                    "VLANs": vlans,
-                    "Servicios": servicios
-                }
-                self.dispositivos[nombre] = detalles
+                nuevos_detalles = input("Ingrese los nuevos detalles del dispositivo: ")
+                self.dispositivos[nombre] = nuevos_detalles
                 input("Dispositivo modificado. Presione Enter para continuar.")
             else:
                 input("El dispositivo especificado no existe. Presione Enter para continuar.")
             self.administrar_dispositivos()
+        
         elif opcion == "3":
             self.menu_principal()
+        
         else:
             input("Opción no válida. Presione Enter para continuar.")
             self.administrar_dispositivos()

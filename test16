@@ -1,0 +1,8 @@
+Campus:
+campus uno: camupus 1
+
+Dispositivos de Red:
+R_1: {'Modelo': 'CISCO ROUTER', 'Capa': 'Núcleo', 'Interfaces': ['eth0', 'eth1'], 'IPs': ['192.168.0.1', '192.168.0.2'], 'VLANs': ['10', '20', '30'], 'Servicios': ['DHCP']}
+
+Dispositivos por Campus:
+campus uno:
