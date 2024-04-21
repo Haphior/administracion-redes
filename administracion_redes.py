@@ -103,20 +103,41 @@ class AdministradorRedes:
         opcion = input("Seleccione una opción:\n1. Agregar dispositivo\n2. Modificar dispositivo\n3. Volver al menú principal\n")
         if opcion == "1":
             nombre = input("Ingrese el nombre del dispositivo: ")
-            detalles = input("Ingrese los detalles del dispositivo: ")
-            nombre_campus = input("Ingrese el nombre del campus asociado: ")
-            if nombre_campus in self.campus:
-                self.dispositivos[nombre] = detalles
-                self.dispositivos_por_campus[nombre_campus].append(nombre)
-                input("Dispositivo agregado. Presione Enter para continuar.")
-            else:
-                input("El campus especificado no existe. Presione Enter para continuar.")
+            modelo = input("Ingrese el modelo del dispositivo: ")
+            capa = input("Ingrese la capa jerárquica a la que pertenece (núcleo, distribución, acceso): ")
+            interfaces = input("Ingrese las interfaces de red del dispositivo (separadas por coma): ").split(",")
+            ips = input("Ingrese las IPs de las interfaces (separadas por coma): ").split(",")
+            vlans = input("Ingrese las VLANs configuradas (separadas por coma): ").split(",")
+            servicios = input("Ingrese los servicios de red configurados (separados por coma): ").split(",")
+            detalles = {
+                "Modelo": modelo,
+                "Capa": capa,
+                "Interfaces": interfaces,
+                "IPs": ips,
+                "VLANs": vlans,
+                "Servicios": servicios
+            }
+            self.dispositivos[nombre] = detalles
+            input("Dispositivo agregado. Presione Enter para continuar.")
             self.administrar_dispositivos()
         elif opcion == "2":
             nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
             if nombre in self.dispositivos:
-                nuevos_detalles = input("Ingrese los nuevos detalles del dispositivo: ")
-                self.dispositivos[nombre] = nuevos_detalles
+                modelo = input("Ingrese el nuevo modelo del dispositivo: ")
+                capa = input("Ingrese la nueva capa jerárquica a la que pertenece (núcleo, distribución, acceso): ")
+                interfaces = input("Ingrese las nuevas interfaces de red del dispositivo (separadas por coma): ").split(",")
+                ips = input("Ingrese las nuevas IPs de las interfaces (separadas por coma): ").split(",")
+                vlans = input("Ingrese las nuevas VLANs configuradas (separadas por coma): ").split(",")
+                servicios = input("Ingrese los nuevos servicios de red configurados (separados por coma): ").split(",")
+                detalles = {
+                    "Modelo": modelo,
+                    "Capa": capa,
+                    "Interfaces": interfaces,
+                    "IPs": ips,
+                    "VLANs": vlans,
+                    "Servicios": servicios
+                }
+                self.dispositivos[nombre] = detalles
                 input("Dispositivo modificado. Presione Enter para continuar.")
             else:
                 input("El dispositivo especificado no existe. Presione Enter para continuar.")
