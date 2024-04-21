@@ -2,7 +2,6 @@ import os
 import re
 
 def es_direccion_ipv4(direccion):
-    # Expresión regular para validar direcciones IPv4
     patron_ipv4 = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
     return re.match(patron_ipv4, direccion) is not None
 
@@ -15,6 +14,7 @@ class AdministradorRedes:
 
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
+
 
     def cargar_desde_archivo(self):
         seccion_actual = None
@@ -40,14 +40,22 @@ class AdministradorRedes:
             archivo.write("Campus:\n")
             for nombre, descripcion in self.campus.items():
                 archivo.write(f"{nombre}: {descripcion}\n")
+
             archivo.write("\nDispositivos de Red:\n")
             for nombre, detalles in self.dispositivos.items():
-                archivo.write(f"{nombre}: {detalles}\n")
-            archivo.write("\nDispositivos por Campus:\n")
-            for nombre_campus, dispositivos_asociados in self.dispositivos_por_campus.items():
-                archivo.write(f"{nombre_campus}:\n")
-                for dispositivo in dispositivos_asociados:
-                    archivo.write(f"- {dispositivo}\n")
+                archivo.write(f"{nombre}:\n")
+                archivo.write(f"    Modelo: {detalles['Modelo']}\n")
+                archivo.write(f"    Capa: {detalles['Capa']}\n")
+                archivo.write("    Interfaces:\n")
+                for interfaz, ip in zip(detalles['Interfaces'], detalles['IPs']):
+                    archivo.write(f"        {interfaz}: {ip}\n")
+                archivo.write("    VLANs:\n")
+                for nombre_vlan, numero_vlan in detalles['VLANs'].items():
+                    archivo.write(f"        {nombre_vlan}: {numero_vlan}\n")
+                archivo.write("    Servicios:\n")
+                for servicio in detalles['Servicios']:
+                    archivo.write(f"        {servicio}\n")
+                archivo.write("\n")
         print("Archivo guardado con éxito.")
         input("Presione Enter para continuar.")
         self.menu_principal()
