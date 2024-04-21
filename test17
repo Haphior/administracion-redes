@@ -1,0 +1,8 @@
+Campus:
+zona norte: norte
+
+Dispositivos de Red:
+R_1: {'Modelo': 'CISCO ROUTER', 'Capa': 'Núcleo', 'Interfaces': ['eth0', 'eth2', 'eth3'], 'IPs': ['192.168.0.1', '10.10.10.10', '255.255.255.0'], 'VLANs': {'VENTAS': '10', 'ADMINISTRACION': '20', 'RRPP': '20'}, 'Servicios': ['DHCP', 'POP3']}
+
+Dispositivos por Campus:
+zona norte:

@@ -124,7 +124,6 @@ class AdministradorRedes:
             else:
                 capa = "Desconocida"
             interfaces = input("Ingrese las interfaces de red del dispositivo (separadas por coma): ").split(",")
-            # Validar e ingresar las direcciones IP para cada interfaz
             ips = []
             for interfaz in interfaces:
                 ip_valida = False
@@ -135,7 +134,13 @@ class AdministradorRedes:
                         ip_valida = True
                     else:
                         print("La dirección IP ingresada no es válida. Inténtelo nuevamente.")
-            vlans = input("Ingrese las VLANs configuradas (separadas por coma): ").split(",")
+            vlans = {}
+            while True:
+                nombre_vlan = input("Ingrese el nombre de la VLAN (o 'fin' para terminar): ")
+                if nombre_vlan.lower() == 'fin':
+                    break
+                numero_vlan = input("Ingrese el número de la VLAN: ")
+                vlans[nombre_vlan] = numero_vlan
             servicios = input("Ingrese los servicios de red configurados (separados por coma): ").split(",")
             detalles = {
                 "Modelo": modelo,
@@ -148,7 +153,7 @@ class AdministradorRedes:
             self.dispositivos[nombre] = detalles
             input("Dispositivo agregado. Presione Enter para continuar.")
             self.administrar_dispositivos()
-        
+    
         elif opcion == "2":
             nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
             if nombre in self.dispositivos:
@@ -158,10 +163,10 @@ class AdministradorRedes:
             else:
                 input("El dispositivo especificado no existe. Presione Enter para continuar.")
             self.administrar_dispositivos()
-        
+    
         elif opcion == "3":
             self.menu_principal()
-        
+    
         else:
             input("Opción no válida. Presione Enter para continuar.")
             self.administrar_dispositivos()
