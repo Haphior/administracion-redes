@@ -43,6 +43,8 @@ class AdministradorRedes:
                 for dispositivo in dispositivos_asociados:
                     archivo.write(f"- {dispositivo}\n")
         print("Archivo guardado con éxito.")
+        input("Presione Enter para continuar.")
+        self.menu_principal()
 
     def menu_principal(self):
         os.system("clear")
