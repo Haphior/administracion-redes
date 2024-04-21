@@ -104,7 +104,19 @@ class AdministradorRedes:
         if opcion == "1":
             nombre = input("Ingrese el nombre del dispositivo: ")
             modelo = input("Ingrese el modelo del dispositivo: ")
-            capa = input("Ingrese la capa jerárquica a la que pertenece (núcleo, distribución, acceso): ")
+            print("Seleccione la capa jerárquica a la que pertenece:")
+            print("1) Núcleo")
+            print("2) Distribución")
+            print("3) Acceso")
+            capa_opcion = input("Opción: ")
+            if capa_opcion == "1":
+                capa = "Núcleo"
+            elif capa_opcion == "2":
+                capa = "Distribución"
+            elif capa_opcion == "3":
+                capa = "Acceso"
+            else:
+                capa = "Desconocida"
             interfaces = input("Ingrese las interfaces de red del dispositivo (separadas por coma): ").split(",")
             ips = input("Ingrese las IPs de las interfaces (separadas por coma): ").split(",")
             vlans = input("Ingrese las VLANs configuradas (separadas por coma): ").split(",")
@@ -124,7 +136,19 @@ class AdministradorRedes:
             nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
             if nombre in self.dispositivos:
                 modelo = input("Ingrese el nuevo modelo del dispositivo: ")
-                capa = input("Ingrese la nueva capa jerárquica a la que pertenece (núcleo, distribución, acceso): ")
+                print("Seleccione la nueva capa jerárquica a la que pertenece:")
+                print("1) Núcleo")
+                print("2) Distribución")
+                print("3) Acceso")
+                capa_opcion = input("Opción: ")
+                if capa_opcion == "1":
+                    capa = "Núcleo"
+                elif capa_opcion == "2":
+                    capa = "Distribución"
+                elif capa_opcion == "3":
+                    capa = "Acceso"
+                else:
+                    capa = "Desconocida"
                 interfaces = input("Ingrese las nuevas interfaces de red del dispositivo (separadas por coma): ").split(",")
                 ips = input("Ingrese las nuevas IPs de las interfaces (separadas por coma): ").split(",")
                 vlans = input("Ingrese las nuevas VLANs configuradas (separadas por coma): ").split(",")

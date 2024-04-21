@@ -1,0 +1,8 @@
+Campus:
+uno: dos
+
+Dispositivos de Red:
+R_1: {'Modelo': 'CISCO ROUTER', 'Capa': 'Núcleo', 'Interfaces': ['eth0', 'eth2'], 'IPs': ['192.168.0.1', '321312'], 'VLANs': ['10', '20', '30'], 'Servicios': ['DHCP']}
+
+Dispositivos por Campus:
+uno:
