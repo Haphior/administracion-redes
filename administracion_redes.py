@@ -2,117 +2,130 @@ import os
 
 class AdministradorRedes:
     def __init__(self, nombre_archivo):
-        self.secciones = {
-            "campus": {},
-            "dispositivos": {},
-            "dispositivos_por_campus": {}
-        }
+        self.campus = {}
+        self.dispositivos = {}
+        self.dispositivos_por_campus = {}
         self.nombre_archivo = nombre_archivo
+
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
 
     def cargar_desde_archivo(self):
+        seccion_actual = None
         with open(self.nombre_archivo, "r") as archivo:
-            seccion_actual = None
             for linea in archivo:
                 linea = linea.strip()
-                if linea in self.secciones:
-                    seccion_actual = linea
-                elif seccion_actual:
+                if linea == "Campus:":
+                    seccion_actual = "campus"
+                elif linea == "Dispositivos de Red:":
+                    seccion_actual = "dispositivos"
+                elif seccion_actual == "campus" or seccion_actual == "dispositivos":
                     partes = linea.split(": ")
                     if len(partes) >= 2:
                         nombre, descripcion = partes[0], partes[1]
-                        if seccion_actual == "dispositivos_por_campus":
-                            self.secciones[seccion_actual].setdefault(nombre, []).append(descripcion)
-                        else:
-                            self.secciones[seccion_actual][nombre] = descripcion
+                        if seccion_actual == "campus":
+                            self.campus[nombre] = descripcion
+                            self.dispositivos_por_campus[nombre] = []
+                        elif seccion_actual == "dispositivos":
+                            self.dispositivos[nombre] = descripcion
 
     def guardar_en_archivo(self):
         with open(self.nombre_archivo, "w") as archivo:
-            for seccion, contenido in self.secciones.items():
-                archivo.write(f"{seccion}:\n")
-                if seccion == "dispositivos_por_campus":
-                    for nombre, elementos in contenido.items():
-                        archivo.write(f"{nombre}:\n")
-                        for elemento in elementos:
-                            archivo.write(f"- {elemento}\n")
-                else:
-                    for nombre, descripcion in contenido.items():
-                        archivo.write(f"{nombre}: {descripcion}\n")
+            archivo.write("Campus:\n")
+            for nombre, descripcion in self.campus.items():
+                archivo.write(f"{nombre}: {descripcion}\n")
+            archivo.write("\nDispositivos de Red:\n")
+            for nombre, detalles in self.dispositivos.items():
+                archivo.write(f"{nombre}: {detalles}\n")
+            archivo.write("\nDispositivos por Campus:\n")
+            for nombre_campus, dispositivos_asociados in self.dispositivos_por_campus.items():
+                archivo.write(f"{nombre_campus}:\n")
+                for dispositivo in dispositivos_asociados:
+                    archivo.write(f"- {dispositivo}\n")
         print("Archivo guardado con éxito.")
 
-    def mostrar_menu(self, opciones):
+    def menu_principal(self):
         os.system("clear")
         print("¡Bienvenido al Administrador de Redes!")
-        for idx, opcion in enumerate(opciones, start=1):
-            print(f"{idx}. {opcion}")
+        print("1. Administrar campus")
+        print("2. Administrar dispositivos de red")
+        print("3. Guardar información en archivo de texto")
+        print("4. Salir")
         opcion = input("Seleccione una opción: ")
-        return opcion
+        if opcion == "1":
+            self.administrar_campus()
+        elif opcion == "2":
+            self.administrar_dispositivos()
+        elif opcion == "3":
+            self.guardar_en_archivo()
+        elif opcion == "4":
+            print("¡Hasta luego!")
+            exit()
+        else:
+            input("Opción no válida. Presione Enter para continuar.")
+            self.menu_principal()
 
     def administrar_campus(self):
-        while True:
-            os.system("clear")
-            print("Campus:")
-            for nombre, descripcion in self.secciones["campus"].items():
-                print(f"{nombre}: {descripcion}")
-            print("\n1. Agregar campus")
-            print("2. Volver al menú principal")
-            opcion = input("Seleccione una opción: ")
-            if opcion == "1":
-                nombre = input("Ingrese el nombre del campus: ")
-                descripcion = input("Ingrese una descripción del campus: ")
-                self.secciones["campus"][nombre] = descripcion
-                self.secciones["dispositivos_por_campus"][nombre] = []
-                input("Campus agregado. Presione Enter para continuar.")
-            elif opcion == "2":
-                break
+        os.system("clear")
+        print("Campus:")
+        for nombre, descripcion in self.campus.items():
+            print(f"{nombre}: {descripcion}")
+        opcion = input("Seleccione una opción:\n1. Agregar campus\n2. Modificar campus\n3. Volver al menú principal\n")
+        if opcion == "1":
+            nombre = input("Ingrese el nombre del campus: ")
+            descripcion = input("Ingrese una descripción del campus: ")
+            self.campus[nombre] = descripcion
+            self.dispositivos_por_campus[nombre] = []
+            input("Campus agregado. Presione Enter para continuar.")
+            self.administrar_campus()
+        elif opcion == "2":
+            nombre = input("Ingrese el nombre del campus que desea modificar: ")
+            if nombre in self.campus:
+                nueva_descripcion = input("Ingrese la nueva descripción del campus: ")
+                self.campus[nombre] = nueva_descripcion
+                input("Campus modificado. Presione Enter para continuar.")
             else:
-                input("Opción no válida. Presione Enter para continuar.")
+                input("El campus especificado no existe. Presione Enter para continuar.")
+            self.administrar_campus()
+        elif opcion == "3":
+            self.menu_principal()
+        else:
+            input("Opción no válida. Presione Enter para continuar.")
+            self.administrar_campus()
 
     def administrar_dispositivos(self):
-        while True:
-            os.system("clear")
-            print("Dispositivos de Red:")
-            for nombre, detalles in self.secciones["dispositivos"].items():
-                print(f"{nombre}: {detalles}")
-            print("\n1. Agregar dispositivo")
-            print("2. Modificar dispositivo")
-            print("3. Volver al menú principal")
-            opcion = input("Seleccione una opción: ")
-            if opcion == "1":
-                nombre = input("Ingrese el nombre del dispositivo: ")
-                detalles = input("Ingrese los detalles del dispositivo: ")
-                self.secciones["dispositivos"][nombre] = detalles
+        os.system("clear")
+        print("Dispositivos de Red:")
+        for nombre, detalles in self.dispositivos.items():
+            print(f"{nombre}: {detalles}")
+        opcion = input("Seleccione una opción:\n1. Agregar dispositivo\n2. Modificar dispositivo\n3. Volver al menú principal\n")
+        if opcion == "1":
+            nombre = input("Ingrese el nombre del dispositivo: ")
+            detalles = input("Ingrese los detalles del dispositivo: ")
+            nombre_campus = input("Ingrese el nombre del campus asociado: ")
+            if nombre_campus in self.campus:
+                self.dispositivos[nombre] = detalles
+                self.dispositivos_por_campus[nombre_campus].append(nombre)
                 input("Dispositivo agregado. Presione Enter para continuar.")
-            elif opcion == "2":
-                nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
-                if nombre in self.secciones["dispositivos"]:
-                    nuevos_detalles = input("Ingrese los nuevos detalles del dispositivo: ")
-                    self.secciones["dispositivos"][nombre] = nuevos_detalles
-                    input("Dispositivo modificado. Presione Enter para continuar.")
-                else:
-                    input("El dispositivo especificado no existe. Presione Enter para continuar.")
-            elif opcion == "3":
-                break
             else:
-                input("Opción no válida. Presione Enter para continuar.")
-
-    def ejecutar(self):
-        while True:
-            opcion = self.mostrar_menu(["Administrar campus", "Administrar dispositivos de red", "Guardar información en archivo de texto", "Salir"])
-            if opcion == "1":
-                self.administrar_campus()
-            elif opcion == "2":
-                self.administrar_dispositivos()
-            elif opcion == "3":
-                self.guardar_en_archivo()
-            elif opcion == "4":
-                print("¡Hasta luego!")
-                break
+                input("El campus especificado no existe. Presione Enter para continuar.")
+            self.administrar_dispositivos()
+        elif opcion == "2":
+            nombre = input("Ingrese el nombre del dispositivo que desea modificar: ")
+            if nombre in self.dispositivos:
+                nuevos_detalles = input("Ingrese los nuevos detalles del dispositivo: ")
+                self.dispositivos[nombre] = nuevos_detalles
+                input("Dispositivo modificado. Presione Enter para continuar.")
             else:
-                input("Opción no válida. Presione Enter para continuar.")
+                input("El dispositivo especificado no existe. Presione Enter para continuar.")
+            self.administrar_dispositivos()
+        elif opcion == "3":
+            self.menu_principal()
+        else:
+            input("Opción no válida. Presione Enter para continuar.")
+            self.administrar_dispositivos()
 
 if __name__ == "__main__":
     nombre_archivo = input("Ingrese el nombre del archivo para cargar o crear la información: ")
     administrador = AdministradorRedes(nombre_archivo)
-    administrador.ejecutar()
+    administrador.menu_principal()
