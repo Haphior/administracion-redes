@@ -1,0 +1,71 @@
+{
+    "campus": {
+        "1": "1",
+        "2": "2"
+    },
+    "dispositivos": {},
+    "1": [
+        {
+            "nombre": "1",
+            "modelo": "1",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "1"
+            ],
+            "ips_masks": {
+                "1": [
+                    "1.1.1.1",
+                    "1.1.1.1"
+                ]
+            },
+            "vlans": {
+                "1": "1"
+            },
+            "servicios": [
+                "1"
+            ]
+        },
+        {
+            "nombre": "2",
+            "modelo": "2",
+            "capa": "Distribuci\u00f3n",
+            "interfaces": [
+                "2"
+            ],
+            "ips_masks": {
+                "2": [
+                    "2.2.2.2",
+                    "2.2.2.2"
+                ]
+            },
+            "vlans": {
+                "2": "2"
+            },
+            "servicios": [
+                ""
+            ]
+        }
+    ],
+    "2": [
+        {
+            "nombre": "3",
+            "modelo": "3",
+            "capa": "Acceso",
+            "interfaces": [
+                "3"
+            ],
+            "ips_masks": {
+                "3": [
+                    "3.3.3.3",
+                    "3.3.3.3"
+                ]
+            },
+            "vlans": {
+                "3": "3"
+            },
+            "servicios": [
+                "3"
+            ]
+        }
+    ]
+}

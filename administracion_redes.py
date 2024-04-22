@@ -52,6 +52,43 @@ class AdministradorRedes:
         with open(self.nombre_archivo, "w") as archivo:
             json.dump(datos, archivo, indent=4)
 
+    def interpretar_json_y_guardar_texto(self, archivo_texto):
+        if os.path.exists(self.nombre_archivo):
+            with open(self.nombre_archivo, "r") as archivo:
+                datos = json.load(archivo)
+                for nombre, descripcion in datos["campus"].items():
+                    campus = Campus(nombre, descripcion)
+                    self.campus[nombre] = campus
+
+                    dispositivos_info = datos.get(nombre, [])
+                    for dispositivo_info in dispositivos_info:
+                        dispositivo = Dispositivo(**dispositivo_info)
+                        campus.dispositivos.append(dispositivo)
+
+            texto_formato = self.convertir_a_formato_texto()
+            with open(archivo_texto, "w") as archivo_texto:
+                archivo_texto.write(texto_formato)
+            print(f"Datos convertidos y guardados en el archivo: {archivo_texto}")
+
+    def convertir_a_formato_texto(self):
+        texto_formato = ""
+        for nombre, campus in self.campus.items():
+            texto_formato += f"Campus: {nombre}\nDescripción: {campus.descripcion}\n"
+            for dispositivo in campus.dispositivos:
+                texto_formato += f"\nDispositivo: {dispositivo.nombre}\n"
+                texto_formato += f"Modelo: {dispositivo.modelo}\n"
+                texto_formato += f"Capa: {dispositivo.capa}\n"
+                texto_formato += "Interfaces:\n"
+                for interface in dispositivo.interfaces:
+                    ip, mask = dispositivo.ips_masks.get(interface, ("", ""))
+                    texto_formato += f"- {interface}: IP: {ip}, Máscara: {mask}\n"
+                texto_formato += "VLANs:\n"
+                for vlan, numero in dispositivo.vlans.items():
+                    texto_formato += f"- {vlan}: {numero}\n"
+                texto_formato += f"Servicios: {', '.join(dispositivo.servicios)}\n"
+                texto_formato += "-" * 30 + "\n"
+        return texto_formato
+
     def menu_principal(self):
         while True:
             os.system("clear")
@@ -59,7 +96,8 @@ class AdministradorRedes:
             print("1. Administrar campus")
             print("2. Administrar dispositivos de red")
             print("3. Guardar información en archivo de texto")
-            print("4. Salir")
+            print("4. Interpretar archivo JSON, convertir a formato de texto y guardar")
+            print("5. Salir")
             opcion = input("Seleccione una opción: ")
             if opcion == "1":
                 self.administrar_campus()
@@ -68,6 +106,10 @@ class AdministradorRedes:
             elif opcion == "3":
                 self.guardar_en_archivo()
             elif opcion == "4":
+                archivo_texto = input("Ingrese el nombre del archivo de texto para guardar los datos: ")
+                self.interpretar_json_y_guardar_texto(archivo_texto)
+                input("Presione Enter para continuar.")
+            elif opcion == "5":
                 print("¡Hasta luego!")
                 break
             else:
@@ -190,4 +232,3 @@ if __name__ == "__main__":
     nombre_archivo = input("Ingrese el nombre del archivo para cargar o crear la información: ")
     administrador = AdministradorRedes(nombre_archivo)
     administrador.menu_principal()
-
