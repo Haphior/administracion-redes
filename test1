@@ -1,0 +1,41 @@
+{
+    "campus": {
+        "ZONA NOTE": "NOTE",
+        "ZONA SU": "SUR"
+    },
+    "dispositivos": {},
+    "ZONA NOTE": [],
+    "ZONA SU": [
+        {
+            "nombre": "R_1",
+            "modelo": "CISCO ROUTER",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "eth0",
+                "eth1",
+                "eth2"
+            ],
+            "ips_masks": {
+                "eth0": [
+                    "192.168.0.1",
+                    "255.255.255.0"
+                ],
+                "eth1": [
+                    "192.168.0.2",
+                    "255.255.255.0"
+                ],
+                "eth2": [
+                    "192.168.0.3",
+                    "255.255.255.0"
+                ]
+            },
+            "vlans": {
+                "RRPP": "20"
+            },
+            "servicios": [
+                "DHCP",
+                "OSPF"
+            ]
+        }
+    ]
+}

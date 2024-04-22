@@ -1,0 +1,16 @@
+Campus: ZONA NOTE
+Descripción: NOTE
+Campus: ZONA SU
+Descripción: SUR
+
+Dispositivo: R_1
+Modelo: CISCO ROUTER
+Capa: Núcleo
+Interfaces:
+- eth0: IP: 192.168.0.1, Máscara: 255.255.255.0
+- eth1: IP: 192.168.0.2, Máscara: 255.255.255.0
+- eth2: IP: 192.168.0.3, Máscara: 255.255.255.0
+VLANs:
+- RRPP: 20
+Servicios: DHCP, OSPF
+------------------------------
