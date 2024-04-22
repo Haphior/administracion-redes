@@ -1,0 +1,17 @@
+Campus:
+ZONA NORTE: NORTE
+ZONA SUR: SUR
+
+Dispositivos de Red:
+A:
+    Modelo: 2
+    Capa: Núcleo
+    Interfaces:
+        ETH0: 192.168.0.1
+        ETH2: 192.168.0.2
+    VLANs:
+        nico: 10
+    Servicios:
+        DHCP
+        VLC
+
