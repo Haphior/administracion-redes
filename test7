@@ -1,3 +1,56 @@
-campus:
-dispositivos:
-dispositivos_por_campus:
+Campus:
+ZONA NORTE: LOL
+
+  Dispositivos de ZONA NORTE:
+    R1:
+        modelo: CISCO
+        capa: Núcleo
+        interfaces: ['ETH0', 'ETH1']
+        ips_masks: {ETH0-192.168.0.1-192.168.0.2, ETH1-192.168.0.3-192.168.0.4}
+        vlans: {ADMIN-10}
+        servicios: ['DHCP', 'OSPF']
+
+    R2:
+        modelo: CISCO
+        capa: Núcleo
+        interfaces: ['ETH0', 'ETH1', 'ETH2']
+        ips_masks: {ETH0-192.168.0.1-255.255.255.0, ETH1-192.168.0.2-255.255.255.0, ETH2-192.168.0.3-255.255.255.0}
+        vlans: {ADMIN-10, RRPP-20}
+        servicios: ['DHCP', 'OSPF', 'VLAN']
+
+ZONA SUR: LOL2
+
+  Dispositivos de ZONA SUR:
+Campus:
+ZONA NORTE: LOL
+
+  Dispositivos de ZONA NORTE:
+modelo: CISCO
+
+  Dispositivos de modelo:
+capa: Núcleo
+
+  Dispositivos de capa:
+interfaces: ['ETH0', 'ETH1', 'ETH2']
+
+  Dispositivos de interfaces:
+ips_masks: {ETH0-192.168.0.1-255.255.255.0, ETH1-192.168.0.2-255.255.255.0, ETH2-192.168.0.3-255.255.255.0}
+
+  Dispositivos de ips_masks:
+vlans: {ADMIN-10, RRPP-20}
+
+  Dispositivos de vlans:
+servicios: ['DHCP', 'OSPF', 'VLAN']
+
+  Dispositivos de servicios:
+ZONA SUR: LOL2
+
+  Dispositivos de ZONA SUR:
+    R1:
+        modelo: CISCO
+        capa: Núcleo
+        interfaces: ['ETH0', 'ETH1', 'ETH2']
+        ips_masks: {ETH0-192.168.0.1-255.255.255.0, ETH1-192.168.0.2-255.255.255.0, ETH2-192.168.0.3-255.255.255.0}
+        vlans: {ADMIN-10, RRPP-20}
+        servicios: ['DHCP', 'POP3', 'OSPF']
+

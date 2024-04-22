@@ -1,14 +1,13 @@
-Áreas de Red:
-a: a
+Campus:
+NORTE: NORTE
 
-Zonas:
-a: a
+  Dispositivos de NORTE:
+ 1:
+modelo: 1
+capa: Núcleo
+interfaces: ['1']
+ips_masks: {1-1.1.1.1-1}
+vlans: {1-1}
+servicios: ['1']
 
-Zonas por Área:
-a:
 
-Dispositivos de Red:
-a: a
-
-Dispositivos por Zona:
-a:

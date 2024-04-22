@@ -1,6 +1,13 @@
-campus:
-a: a
-dispositivos:
+Campus:
 1: 1
-dispositivos_por_campus:
-a:
+
+  Dispositivos de 1:
+ 1:
+modelo: 1
+capa: Núcleo
+interfaces: ['1']
+ips_masks: {1-1.1.1.1-1.1.1.1}
+vlans: {1-1}
+servicios: ['1']
+
+

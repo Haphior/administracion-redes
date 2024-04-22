@@ -1,5 +1,8 @@
-campus:
-campus uno: a
-dispositivos:
-dispositivos_por_campus:
-campus uno:
+Dispositivos de Red:
+    1:
+        modelo: 1
+        capa: Núcleo
+        interfaces: ['1']
+        ips_masks: {1-1.1.1.1-1}
+        vlans: {10-10}
+        servicios: ['DHCP']

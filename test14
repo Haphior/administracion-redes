@@ -1,8 +1,71 @@
-Campus:
-uno: dos
-
-Dispositivos de Red:
-R_1: {'Modelo': 'CISCO ROUTER', 'Capa': 'Núcleo', 'Interfaces': ['eth0', 'eth2'], 'IPs': ['192.168.0.1', '321312'], 'VLANs': ['10', '20', '30'], 'Servicios': ['DHCP']}
-
-Dispositivos por Campus:
-uno:
+{
+    "campus": {
+        "HOLA": "HOLA",
+        "HOLA2": "HOLA2"
+    },
+    "dispositivos": {},
+    "HOLA": [
+        {
+            "nombre": "R1",
+            "modelo": "CISCO",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "1"
+            ],
+            "ips_masks": {
+                "1": [
+                    "1.1.1.1",
+                    "1.1.1.1"
+                ]
+            },
+            "vlans": {
+                "1": "1"
+            },
+            "servicios": [
+                "1"
+            ]
+        },
+        {
+            "nombre": "R2",
+            "modelo": "CISCO",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "ETH0"
+            ],
+            "ips_masks": {
+                "ETH0": [
+                    "192.168.0.1",
+                    "255.255.255.0"
+                ]
+            },
+            "vlans": {
+                "10": "20"
+            },
+            "servicios": [
+                "2"
+            ]
+        }
+    ],
+    "HOLA2": [
+        {
+            "nombre": "R1",
+            "modelo": "1",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "1"
+            ],
+            "ips_masks": {
+                "1": [
+                    "1.1.1.1",
+                    "1.1.1.1"
+                ]
+            },
+            "vlans": {
+                "1": "1"
+            },
+            "servicios": [
+                "1"
+            ]
+        }
+    ]
+}

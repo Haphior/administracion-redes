@@ -1,8 +1,13 @@
 Campus:
-INACAP: INACAP NORTE
+norte: norte
 
-Dispositivos de Red:
-R_1: {'Modelo': 'Cisco Router', 'Capa': 'núcleo', 'Interfaces': ['eth0', 'eth1'], 'IPs': ['192.168.0.1', '192.168.0.2'], 'VLANs': ['10', '20', '30'], 'Servicios': ['DHCP', 'FTP', 'PO3']}
+  Dispositivos de norte:
+ 1:
+modelo: 1
+capa: Núcleo
+interfaces: ['1']
+ips_masks: {1-1.1.1.1-1}
+vlans: {1-1, fi-1}
+servicios: ['1']
 
-Dispositivos por Campus:
-INACAP:
+
