@@ -1,0 +1,32 @@
+Campus:
+1: 1
+2: 2
+
+Dispositivos de Red:
+1:
+    Modelo: 1
+    Capa: Núcleo
+    Interfaces: 1
+    IPs: 1.1.1.1
+    VLANs:
+        1: 1
+    Servicios: 1
+
+2:
+    Modelo: 2
+    Capa: Distribución
+    Interfaces: 2
+    IPs: 2.2.2.2
+    VLANs:
+        2: 2
+    Servicios: 2
+
+3:
+    Modelo: 3
+    Capa: Acceso
+    Interfaces: 3
+    IPs: 3.3.3.3
+    VLANs:
+        3: 3
+    Servicios: 3
+

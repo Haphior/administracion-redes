@@ -1,0 +1,13 @@
+Campus:
+1: 1
+2: 2
+
+Dispositivos de Red:
+2:
+    modelo: 2
+    capa: Distribución
+    interfaces: ['2']
+    ips: ['2.2.2.2']
+    vlans: {'2': '2'}
+    servicios: ['2']
+

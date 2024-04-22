@@ -1,0 +1,20 @@
+
+Dispositivos de Red:
+R1:
+    modelo: CISCO
+    capa: Núcleo
+    interfaces: ['1']
+    ips: ['1.1.1.1']
+    vlans: {'1': '1'}
+    servicios: ['20']
+
+20:
+    modelo: 20
+    capa: Distribución
+    interfaces: ['ETH0', 'ETH1']
+    ips: ['192.168.0.1', '192.168.0.2']
+    vlans: {'VLAN10': '10'}
+    servicios: ['DHCP']
+
+
+Dispositivos de Red:
