@@ -1,0 +1,22 @@
+Campus: leandro
+Descripción: leandro
+
+Dispositivo: leandro router
+Modelo: ciscos
+Capa: Distribución
+Interfaces:
+- eth1: IP: 192.168.0.2, Máscara: 255.255.255.0
+VLANs:
+- admin: 10
+Servicios: DHCP
+------------------------------
+
+Dispositivo: benja
+Modelo: benja router
+Capa: Distribución
+Interfaces:
+- eth1: IP: 192.168.0.1, Máscara: 255.255.255.0
+VLANs:
+- admin: 10
+Servicios: DHCP
+------------------------------

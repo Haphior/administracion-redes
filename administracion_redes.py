@@ -203,6 +203,59 @@ class AdministradorRedes:
         else:
             input("El campus especificado no existe. Presione Enter para continuar.")
 
+    def modificar_dispositivo(self, nombre_campus, nombre_dispositivo):
+        """
+        Modifica un dispositivo existente en un campus.
+
+        Args:
+            nombre_campus (str): El nombre del campus donde se encuentra el dispositivo.
+            nombre_dispositivo (str): El nombre del dispositivo a modificar.
+        """
+        if nombre_campus in self.campus:
+            campus = self.campus[nombre_campus]
+            for dispositivo in campus.dispositivos:
+                if dispositivo.nombre == nombre_dispositivo:
+                    # Solicitar nueva información del dispositivo al usuario
+                    modelo = input("Ingrese el nuevo modelo del dispositivo: ")
+                    capa = self.seleccionar_capa()
+                    interfaces = input("Ingrese las interfaces de red del dispositivo (separadas por coma): ").split(",")
+                    ips_masks = self.ingresar_ips_masks(interfaces)
+                    vlans = self.ingresar_vlans()
+                    servicios = input("Ingrese los servicios de red configurados (separados por coma): ").split(",")
+
+                    # Actualizar la información del dispositivo
+                    dispositivo.modelo = modelo
+                    dispositivo.capa = capa
+                    dispositivo.interfaces = interfaces
+                    dispositivo.ips_masks = ips_masks
+                    dispositivo.vlans = vlans
+                    dispositivo.servicios = servicios
+
+                    print("Dispositivo modificado.")
+                    return
+            print("El dispositivo especificado no existe en el campus.")
+        else:
+            print("El campus especificado no existe.")
+
+    def borrar_dispositivo(self, nombre_campus, nombre_dispositivo):
+        """
+        Elimina un dispositivo existente de un campus.
+
+        Args:
+            nombre_campus (str): El nombre del campus donde se encuentra el dispositivo.
+            nombre_dispositivo (str): El nombre del dispositivo a borrar.
+        """
+        if nombre_campus in self.campus:
+            campus = self.campus[nombre_campus]
+            for dispositivo in campus.dispositivos:
+                if dispositivo.nombre == nombre_dispositivo:
+                    campus.dispositivos.remove(dispositivo)
+                    print("Dispositivo eliminado.")
+                    return
+            print("El dispositivo especificado no existe en el campus.")
+        else:
+            print("El campus especificado no existe.")
+
     def administrar_dispositivos(self):
         """
         Muestra el menú de administración de dispositivos y permite al usuario seleccionar una opción.
@@ -212,13 +265,30 @@ class AdministradorRedes:
             print("Campus disponibles:")
             for nombre, campus in self.campus.items():
                 print(f"{nombre}: {campus.descripcion}")
-            campus_seleccionado = input("Ingrese el nombre del campus en el que desea agregar dispositivos (o 'fin' para salir): ")
+            campus_seleccionado = input("Ingrese el nombre del campus en el que desea administrar dispositivos (o 'fin' para salir): ")
             if campus_seleccionado.lower() == "fin":
                 break
             elif campus_seleccionado in self.campus:
-                self.agregar_dispositivos(campus_seleccionado)
+                while True:
+                    os.system("clear")
+                    print("Dispositivos en el campus:")
+                    for dispositivo in self.campus[campus_seleccionado].dispositivos:
+                        print(dispositivo.nombre)
+                    opcion_dispositivo = input("Seleccione una opción:\n1. Agregar dispositivo\n2. Modificar dispositivo\n3. Borrar dispositivo\n4. Volver al menú anterior\n")
+                    if opcion_dispositivo == "1":
+                        self.agregar_dispositivos(campus_seleccionado)
+                    elif opcion_dispositivo == "2":
+                        nombre_dispositivo = input("Ingrese el nombre del dispositivo que desea modificar: ")
+                        self.modificar_dispositivo(campus_seleccionado, nombre_dispositivo)
+                    elif opcion_dispositivo == "3":
+                        nombre_dispositivo = input("Ingrese el nombre del dispositivo que desea borrar: ")
+                        self.borrar_dispositivo(campus_seleccionado, nombre_dispositivo)
+                    elif opcion_dispositivo == "4":
+                        break
+                    else:
+                        input("Opción no válida. Presione Enter para continuar.")
             else:
-                print("El campus especificado no existe.") 
+                print("El campus especificado no existe.")
 
     def agregar_dispositivos(self, nombre_campus):
         """
