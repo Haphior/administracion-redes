@@ -1,0 +1,45 @@
+Campus: 1
+Descripción: 1
+
+Dispositivo: 1
+Modelo: 1
+Capa: Núcleo
+Interfaces:
+- 1: IP: 1.1.1.1, Máscara: 1.1.1.1
+VLANs:
+- 1: 1
+Servicios: 1
+------------------------------
+
+Dispositivo: 2
+Modelo: 2
+Capa: Distribución
+Interfaces:
+- 2: IP: 2.2.2.2, Máscara: 2.2.2.2
+VLANs:
+- 2: 2
+Servicios: 
+------------------------------
+Campus: 2
+Descripción: 2
+
+Dispositivo: 3
+Modelo: 3
+Capa: Acceso
+Interfaces:
+- 3: IP: 3.3.3.3, Máscara: 3.3.3.3
+VLANs:
+- 3: 3
+Servicios: 3
+------------------------------
+
+Dispositivo: R4
+Modelo: CISCO ROUTER
+Capa: Núcleo
+Interfaces:
+- ETH0: IP: 192.168.0.1, Máscara: 255.255.255.0
+- ETH2: IP: 192.168.0.2, Máscara: 255.255.255.0
+VLANs:
+- ADMIN: 10
+Servicios: DHCSP, OSPF
+------------------------------

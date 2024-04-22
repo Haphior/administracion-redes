@@ -66,6 +66,32 @@
             "servicios": [
                 "3"
             ]
+        },
+        {
+            "nombre": "R4",
+            "modelo": "CISCO ROUTER",
+            "capa": "N\u00facleo",
+            "interfaces": [
+                "ETH0",
+                "ETH2"
+            ],
+            "ips_masks": {
+                "ETH0": [
+                    "192.168.0.1",
+                    "255.255.255.0"
+                ],
+                "ETH2": [
+                    "192.168.0.2",
+                    "255.255.255.0"
+                ]
+            },
+            "vlans": {
+                "ADMIN": "10"
+            },
+            "servicios": [
+                "DHCSP",
+                "OSPF"
+            ]
         }
     ]
 }

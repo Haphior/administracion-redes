@@ -130,7 +130,7 @@ class AdministradorRedes:
             print("¡Bienvenido al Administrador de Redes!")
             print("1. Administrar campus")
             print("2. Administrar dispositivos de red")
-            print("3. Guardar información en archivo de texto")
+            print("3. Guardar información en archivo JSON")
             print("4. Interpretar archivo JSON, convertir a formato de texto y guardar")
             print("5. Salir")
             opcion = input("Seleccione una opción: ")
