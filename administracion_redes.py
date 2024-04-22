@@ -23,13 +23,30 @@ def es_direccion_ipv4(direccion):
     return re.match(patron_ipv4, direccion) is not None
 
 class AdministradorRedes:
+    """
+    Clase que representa un administrador de redes.
+
+    Attributes:
+        nombre_archivo (str): El nombre del archivo utilizado para cargar y guardar los datos.
+        campus (dict): Un diccionario que almacena los campus y sus respectivos dispositivos.
+    """
+
     def __init__(self, nombre_archivo):
+        """
+        Inicializa una instancia de la clase AdministradorRedes.
+
+        Args:
+            nombre_archivo (str): El nombre del archivo utilizado para cargar y guardar los datos.
+        """
         self.nombre_archivo = nombre_archivo
         self.campus = {}
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
 
     def cargar_desde_archivo(self):
+        """
+        Carga los datos desde un archivo JSON y los almacena en la instancia de la clase.
+        """
         with open(self.nombre_archivo, "r") as archivo:
             datos = json.load(archivo)
             for nombre, descripcion in datos["campus"].items():
@@ -42,6 +59,9 @@ class AdministradorRedes:
                     campus.dispositivos.append(dispositivo)
 
     def guardar_en_archivo(self):
+        """
+        Guarda los datos de la instancia de la clase en un archivo JSON.
+        """
         datos = {"campus": {}, "dispositivos": {}}
         for nombre, campus in self.campus.items():
             datos["campus"][nombre] = campus.descripcion
@@ -53,6 +73,12 @@ class AdministradorRedes:
             json.dump(datos, archivo, indent=4)
 
     def interpretar_json_y_guardar_texto(self, archivo_texto):
+        """
+        Interpreta los datos de un archivo JSON, los convierte a formato de texto y los guarda en un archivo.
+
+        Args:
+            archivo_texto (str): El nombre del archivo de texto en el que se guardarán los datos convertidos.
+        """
         if os.path.exists(self.nombre_archivo):
             with open(self.nombre_archivo, "r") as archivo:
                 datos = json.load(archivo)
@@ -71,6 +97,12 @@ class AdministradorRedes:
             print(f"Datos convertidos y guardados en el archivo: {archivo_texto}")
 
     def convertir_a_formato_texto(self):
+        """
+        Convierte los datos de la instancia de la clase a formato de texto.
+
+        Returns:
+            str: Los datos convertidos en formato de texto.
+        """
         texto_formato = ""
         for nombre, campus in self.campus.items():
             texto_formato += f"Campus: {nombre}\nDescripción: {campus.descripcion}\n"
@@ -90,6 +122,9 @@ class AdministradorRedes:
         return texto_formato
 
     def menu_principal(self):
+        """
+        Muestra el menú principal y permite al usuario seleccionar una opción.
+        """
         while True:
             os.system("clear")
             print("¡Bienvenido al Administrador de Redes!")
@@ -116,6 +151,9 @@ class AdministradorRedes:
                 input("Opción no válida. Presione Enter para continuar.")
 
     def administrar_campus(self):
+        """
+        Muestra el menú de administración de campus y permite al usuario seleccionar una opción.
+        """
         while True:
             os.system("clear")
             print("Campus:")
@@ -134,12 +172,18 @@ class AdministradorRedes:
                 input("Opción no válida. Presione Enter para continuar.")
 
     def agregar_campus(self):
+        """
+        Agrega un nuevo campus a la instancia de la clase.
+        """
         nombre = input("Ingrese el nombre del campus: ")
         descripcion = input("Ingrese una descripción del campus: ")
         self.campus[nombre] = Campus(nombre, descripcion)
         input("Campus agregado. Presione Enter para continuar.")
 
     def modificar_campus(self):
+        """
+        Modifica la descripción de un campus existente en la instancia de la clase.
+        """
         nombre = input("Ingrese el nombre del campus que desea modificar: ")
         if nombre in self.campus:
             nueva_descripcion = input("Ingrese la nueva descripción del campus: ")
@@ -149,6 +193,9 @@ class AdministradorRedes:
             input("El campus especificado no existe. Presione Enter para continuar.")
 
     def borrar_campus(self):
+        """
+        Elimina un campus existente de la instancia de la clase.
+        """
         nombre = input("Ingrese el nombre del campus que desea borrar: ")
         if nombre in self.campus:
             del self.campus[nombre]
@@ -157,6 +204,9 @@ class AdministradorRedes:
             input("El campus especificado no existe. Presione Enter para continuar.")
 
     def administrar_dispositivos(self):
+        """
+        Muestra el menú de administración de dispositivos y permite al usuario seleccionar una opción.
+        """
         while True:
             os.system("clear")
             print("Campus disponibles:")
@@ -171,6 +221,12 @@ class AdministradorRedes:
                 print("El campus especificado no existe.") 
 
     def agregar_dispositivos(self, nombre_campus):
+        """
+        Agrega dispositivos a un campus existente en la instancia de la clase.
+
+        Args:
+            nombre_campus (str): El nombre del campus al que se agregarán los dispositivos.
+        """
         os.system("clear")
         dispositivos_nuevos = []
         while True:
@@ -191,6 +247,12 @@ class AdministradorRedes:
         print("Dispositivos agregados.")
 
     def seleccionar_capa(self):
+        """
+        Muestra el menú de selección de capa y permite al usuario seleccionar una opción.
+
+        Returns:
+            str: La capa seleccionada.
+        """
         print("Seleccione la capa jerárquica a la que pertenece:")
         print("1) Núcleo")
         print("2) Distribución")
@@ -206,6 +268,15 @@ class AdministradorRedes:
             return "Desconocida"
 
     def ingresar_ips_masks(self, interfaces):
+        """
+        Solicita al usuario ingresar las direcciones IP y máscaras de red para las interfaces de un dispositivo.
+
+        Args:
+            interfaces (list): Una lista de las interfaces del dispositivo.
+
+        Returns:
+            dict: Un diccionario que mapea cada interfaz con su dirección IP y máscara de red correspondientes.
+        """
         ips_masks = {}
         for interfaz in interfaces:
             while True:
@@ -219,6 +290,12 @@ class AdministradorRedes:
         return ips_masks
 
     def ingresar_vlans(self):
+        """
+        Solicita al usuario ingresar los nombres y números de VLAN para un dispositivo.
+
+        Returns:
+            dict: Un diccionario que mapea cada nombre de VLAN con su número correspondiente.
+        """
         vlans = {}
         while True:
             nombre_vlan = input("Ingrese el nombre de la VLAN (o 'fin' para terminar): ")
