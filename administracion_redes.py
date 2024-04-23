@@ -43,6 +43,27 @@ class AdministradorRedes:
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
 
+class AdministradorRedes:
+    """
+    Clase que representa un administrador de redes.
+
+    Attributes:
+        nombre_archivo (str): El nombre del archivo utilizado para cargar y guardar los datos.
+        campus (dict): Un diccionario que almacena los campus y sus respectivos dispositivos.
+    """
+
+    def __init__(self, nombre_archivo):
+        """
+        Inicializa una instancia de la clase AdministradorRedes.
+
+        Args:
+            nombre_archivo (str): El nombre del archivo utilizado para cargar y guardar los datos.
+        """
+        self.nombre_archivo = nombre_archivo
+        self.campus = {}
+        if os.path.exists(nombre_archivo):
+            self.cargar_desde_archivo()
+
     def cargar_desde_archivo(self):
         """
         Carga los datos desde un archivo JSON y los almacena en la instancia de la clase.
