@@ -1,56 +1,76 @@
-Documentación del Código
+Descripción del proyecto
 
-Introducción
+Este proyecto presenta una clase AdministradorRedes que permite gestionar información sobre campus y dispositivos de red. La clase ofrece funcionalidades para:
 
-Este código define una clase AdministradorRedes que permite gestionar información sobre campus y dispositivos de red. La clase proporciona funciones para cargar y guardar datos de un archivo JSON, agregar y modificar campus y dispositivos, y convertir la información a formato de texto.
+Cargar y guardar datos desde un archivo JSON.
 
-Descripción del Código
+Administrar campus:
 
-1. Importaciones:
-os: Módulo para operaciones del sistema operativo.
-json: Módulo para trabajar con datos JSON.
-re: Módulo para expresiones regulares.
+Agregar nuevos campus.
+Modificar la descripción de un campus existente.
+Eliminar un campus existente.
 
-2. Clases y Funciones:
+Administrar dispositivos de red dentro de un campus:
+
+Agregar nuevos dispositivos.
+Modificar la información de un dispositivo existente.
+Eliminar un dispositivo existente.
+
+Convertir los datos de la instancia de la clase a formato de texto para visualización.
+
+Estructura del código
+
+El código se organiza en las siguientes clases:
 
 Campus: Representa un campus con su nombre y descripción.
 
-__init__(self, nombre, descripcion): Inicializa un nuevo campus.
+Dispositivo: Representa un dispositivo de red con su nombre, modelo, capa, interfaces (con sus respectivas direcciones IP y máscaras de red), VLANs y servicios configurados.
 
-Dispositivo: Representa un dispositivo de red con sus características.
+AdministradorRedes: La clase principal que gestiona la información sobre campus y dispositivos.
 
-__init__(self, nombre, modelo, capa, interfaces, ips_masks, vlans, servicios): Inicializa un nuevo dispositivo.
+Funcionalidades principales
 
-AdministradorRedes: Representa un administrador de redes que gestiona campus y dispositivos.
+Las funcionalidades principales de la clase AdministradorRedes se implementan en los siguientes métodos:
 
-__init__(self, nombre_archivo): Inicializa un nuevo administrador de redes con el nombre del archivo para guardar los datos.
+__init__(): Inicializa la instancia de la clase con el nombre del archivo JSON utilizado para cargar y guardar los datos.
 
-cargar_desde_archivo(self): Carga los datos del archivo JSON especificado.
+cargar_desde_archivo(): Carga los datos desde un archivo JSON existente y los almacena en la instancia de la clase.
 
-guardar_en_archivo(self): Guarda los datos en el archivo JSON especificado.
+guardar_en_archivo(): Guarda los datos de la instancia de la clase en un archivo JSON.
 
-interpretar_json_y_guardar_texto(self, archivo_texto): Interpreta los datos del archivo JSON, los convierte a formato de texto y los guarda en un archivo de texto.
+interpretar_json_y_guardar_texto(): Interpreta los datos de un archivo JSON, los convierte a formato de texto y los guarda en un archivo.
 
-convertir_a_formato_texto(self): Convierte los datos a formato de texto.
+convertir_a_formato_texto(): Convierte los datos de la instancia de la clase a formato de texto.
 
-menu_principal(self): Muestra el menú principal y permite al usuario seleccionar una opción.
+menu_principal(): Muestra el menú principal de la aplicación y permite al usuario seleccionar una opción.
 
-administrar_campus(self): Muestra el menú de administración de campus y permite al usuario seleccionar una opción.
+administrar_campus(): Muestra el menú de administración de campus y permite al usuario seleccionar una opción.
 
-agregar_campus(self): Agrega un nuevo campus.
+administrar_dispositivos(): Muestra el menú de administración de dispositivos y permite al usuario seleccionar una opción.
 
-modificar_campus(self): Modifica la descripción de un campus existente.
+agregar_campus(): Agrega un nuevo campus a la instancia de la clase.
 
-borrar_campus(self): Elimina un campus existente.
+modificar_campus(): Modifica la descripción de un campus existente.
 
-administrar_dispositivos(self): Muestra el menú de administración de dispositivos y permite al usuario seleccionar una opción.
+borrar_campus(): Elimina un campus existente.
 
-agregar_dispositivos(self, nombre_campus): Agrega dispositivos a un campus existente.
+agregar_dispositivos(): Agrega nuevos dispositivos a un campus existente.
 
-seleccionar_capa(self): Muestra el menú de selección de capa y permite al usuario seleccionar una opción.
+modificar_dispositivo(): Modifica la información de un dispositivo existente.
 
-ingresar_ips_masks(self, interfaces): Solicita al usuario ingresar las direcciones IP y máscaras de red para las interfaces de un dispositivo.
+borrar_dispositivo(): Elimina un dispositivo existente.
 
-ingresar_vlans(self): Solicita al usuario ingresar los nombres y números de VLAN para un dispositivo.
+seleccionar_capa(): Muestra el menú de selección de capa y permite al usuario seleccionar una opción.
 
-es_direccion_ipv4(direccion): Verifica si una cadena de dirección ip esta bien ingresada.
+ingresar_ips_masks(): Solicita al usuario ingresar las direcciones IP y máscaras de red para las interfaces de un dispositivo.
+
+ingresar_vlans(): Solicita al usuario ingresar los nombres y números de VLAN para un dispositivo.
+
+Uso del código
+
+Para utilizar el código, siga estos pasos:
+
+Guarde el código en un archivo Python (por ejemplo, administrador_redes.py).
+Ejecute el archivo Python desde la terminal:
+python administrador_redes.py
+Siga las instrucciones del menú principal para administrar la información sobre campus y dispositivos.
