@@ -20,7 +20,7 @@ Este es un programa de Python que permite gestionar la información de campus y 
 ## Uso
 
 1. Ejecuta el script Python `main.py`.
-2. Sigue las instrucciones en la consola para administrar la información de red. coni
+2. Sigue las instrucciones en la consola para administrar la información de red.
 
 ```bash
 python main.py
