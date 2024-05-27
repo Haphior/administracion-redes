@@ -14,7 +14,7 @@ Este es un programa de Python que permite gestionar la información de campus y 
 ## Requisitos
 
 - Python 3.x
-- Instalar lista de requerimientos (requirements.txt)
+- Instalar lista de requerimientos (requirements.txt) via pip.
 - Se requieren permisos de escritura para los archivos de datos.
 
 ## Uso
