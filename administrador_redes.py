@@ -31,7 +31,7 @@ class AdministradorRedes:
             json.dump(datos, archivo, indent=4)
 
     def guardar_en_archivo_texto(self, archivo_texto):
-        self.guardar_en_archivo()  # Primero guarda los datos en JSON
+        self.guardar_en_archivo()  
         texto_formato = self.convertir_a_formato_texto()
         with open(archivo_texto, "w") as archivo:
             archivo.write(texto_formato)
