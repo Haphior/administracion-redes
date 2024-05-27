@@ -1,3 +1,6 @@
 verificador.py
 redes-avanzadas/
 __pycache__/
+.gitignore
+.pytest_cache/
+.gitignore
