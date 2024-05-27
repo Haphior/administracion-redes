@@ -225,6 +225,3 @@ class AdministradorRedes:
             numero_vlan = input("Ingrese el número de la VLAN: ")
             vlans[nombre_vlan] = numero_vlan
         return vlans
-
-
-
