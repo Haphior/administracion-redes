@@ -1,3 +1,4 @@
+# admin_redes/admin_redes.py
 import os
 import json
 import re
@@ -29,7 +30,11 @@ class AdministradorRedes:
         self.version_local = self.obtener_version_local()  # Obtener la versión local al iniciar
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
+
     
+    def conectar_repo(self, nombre_usuario, nombre_repo):
+        self.repo = self.github.get_user(nombre_usuario).get_repo(nombre_repo)
+
     def obtener_version_local(self):
         if os.path.exists("version.txt"):
             with open("version.txt", "r") as file:
