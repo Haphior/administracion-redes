@@ -1,72 +1,16 @@
-# admin_redes/admin_redes.py
 import os
 import json
 import re
-import requests
-from github import Github
-
-class Campus:
-    def __init__(self, nombre, descripcion):
-        self.nombre = nombre
-        self.descripcion = descripcion
-        self.dispositivos = []
-
-class Dispositivo:
-    def __init__(self, nombre, modelo, capa, interfaces, ips_masks, vlans, servicios):
-        self.nombre = nombre
-        self.modelo = modelo
-        self.capa = capa
-        self.interfaces = interfaces
-        self.ips_masks = ips_masks
-        self.vlans = vlans
-        self.servicios = servicios
+from campus import Campus
+from dispositivo import Dispositivo
 
 class AdministradorRedes:
-    def __init__(self, nombre_archivo, token):
+    def __init__(self, nombre_archivo):
         self.nombre_archivo = nombre_archivo
-        self.github = Github(token)
-        self.repo = None
         self.campus = {}
-        self.version_local = self.obtener_version_local()  # Obtener la versión local al iniciar
         if os.path.exists(nombre_archivo):
             self.cargar_desde_archivo()
-
     
-    def conectar_repo(self, nombre_usuario, nombre_repo):
-        self.repo = self.github.get_user(nombre_usuario).get_repo(nombre_repo)
-
-    def obtener_version_local(self):
-        if os.path.exists("version.txt"):
-            with open("version.txt", "r") as file:
-                return file.read().strip()
-        else:
-            return None
-
-    def obtener_version_github(self):
-        contenido = self.repo.get_contents("version.txt")
-        return contenido.decoded_content.decode().strip()
-
-    def actualizar_desde_github(self):
-        # Comprobar si la versión en GitHub es más reciente
-        version_github = self.obtener_version_github()
-        if version_github != self.version_local:
-            print("¡Hay una versión más reciente disponible en GitHub!")
-            confirmacion = input("¿Desea actualizar? (s/n): ").lower()
-            if confirmacion == "s":
-                # Descargar el nuevo código desde GitHub
-                contenido = self.repo.get_contents(__file__)
-                with open(__file__, "wb") as file:
-                    file.write(contenido.decoded_content)
-                # Actualizar la versión local
-                self.version_local = version_github
-                with open("version.txt", "w") as file:
-                    file.write(version_github)
-                print("¡Actualización exitosa!")
-            else:
-                print("Actualización cancelada.")
-        else:
-            print("No hay actualizaciones disponibles.")
-
     def cargar_desde_archivo(self):
         with open(self.nombre_archivo, "r") as archivo:
             datos = json.load(archivo)
@@ -87,7 +31,7 @@ class AdministradorRedes:
             json.dump(datos, archivo, indent=4)
 
     def guardar_en_archivo_texto(self, archivo_texto):
-        self.guardar_en_archivo()  
+        self.guardar_en_archivo()  # Primero guarda los datos en JSON
         texto_formato = self.convertir_a_formato_texto()
         with open(archivo_texto, "w") as archivo:
             archivo.write(texto_formato)
@@ -110,9 +54,6 @@ class AdministradorRedes:
         return re.match(patron_ipv4, direccion) is not None
 
     def menu_principal(self):
-        # Realizar el chequeo y la actualización al iniciar
-        self.actualizar_desde_github()
-        
         while True:
             os.system("clear")
             print("¡Bienvenido al Administrador de Redes!")
@@ -284,8 +225,3 @@ class AdministradorRedes:
             numero_vlan = input("Ingrese el número de la VLAN: ")
             vlans[nombre_vlan] = numero_vlan
         return vlans
-
-if __name__ == "__main__":
-    nombre_archivo = input("Ingrese el nombre del archivo para cargar o crear la información: ")
-    administrador = AdministradorRedes(nombre_archivo)
-    administrador.menu_principal()
