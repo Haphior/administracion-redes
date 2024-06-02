@@ -1,8 +1,8 @@
 import os
 import json
 import re
-from campus import Campus
-from dispositivo import Dispositivo
+from .campus import Campus
+from .dispositivo import Dispositivo
 
 class AdministradorRedes:
     def __init__(self, nombre_archivo):
