@@ -19,8 +19,10 @@ Este es un programa de Python que permite gestionar la información de campus y 
 
 ## Uso
 
-1. Ejecuta el script Python `main.py`.
-2. Sigue las instrucciones en la consola para administrar la información de red.
+1. Instalar dependencias necesarias
+2. Ejecuta el script Python `main.py`.
+3. Sigue las instrucciones en la consola para administrar la información de red.
 
 ```bash
+pip install -r requirements.txt
 python main.py
